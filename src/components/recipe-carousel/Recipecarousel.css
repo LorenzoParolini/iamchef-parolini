@@ -1,0 +1,25 @@
+.recipe-carousel {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 120px);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+  margin: 0;
+  background: #5A5A5A;
+}
+
+.recipe-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.recipe-carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,32 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 10px 20px;
+  z-index: 1000;
+  height: 60px;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.header .hamburger-menu {
+  display: flex;
+  align-items: center;
+}
+
+.header .hamburger-menu button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
