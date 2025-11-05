@@ -4,7 +4,7 @@ function Badge() {
 
   return (
        <span className="badge">
-         IngredientX
+         Badge
          <button>×</button>
        </span>
   );

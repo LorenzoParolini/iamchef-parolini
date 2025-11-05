@@ -16,6 +16,7 @@ function App() {
     setShowCarousel(true);
   }
 
+  //FIXME: aggiungi una funzione handleSearch
   return (
     <>
       <Header />
@@ -27,7 +28,7 @@ function App() {
       </>
       }
       {!showCarousel && 
-      <>
+      <>z
         <div className='Logo'>
           <img src="./src/assets/logo.png" alt="logo" />
           <h1>I am Chef!</h1>
