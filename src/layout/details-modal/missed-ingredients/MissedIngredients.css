@@ -1,0 +1,35 @@
+.missed-ingredients {
+  margin: 20px 0;
+}
+
+.missed-ingredients h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.all-ingredients-available {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ingredient-amount {
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.ingredient-name {
+  flex: 1;
+}

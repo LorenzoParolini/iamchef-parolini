@@ -23,3 +23,20 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.no-recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.no-recipes p {
+  font-size: 18px;
+  margin: 8px 0;
+  opacity: 0.8;
+}

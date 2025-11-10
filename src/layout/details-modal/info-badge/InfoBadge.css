@@ -1,0 +1,29 @@
+.info-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.info-badge-icon {
+  font-size: 20px;
+}
+
+.info-badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-badge-label {
+  font-size: 11px;
+  margin: 0;
+  opacity: 0.7;
+}
+
+.info-badge-value {
+  font-size: 14px;
+  font-weight: 600;
+}
