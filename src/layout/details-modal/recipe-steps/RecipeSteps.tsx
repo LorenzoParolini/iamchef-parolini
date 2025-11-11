@@ -1,12 +1,7 @@
 import './RecipeSteps.css'
-import type { AnalyzedInstruction } from '../../../service/apiType';
+import type { RecipeStepsProps } from '../../../types';
 
 // mostra passi di preparazione ricetta
-
-interface RecipeStepsProps {
-  instructions: AnalyzedInstruction[];
-  simpleInstructions?: string;
-}
 
 function RecipeSteps({ instructions, simpleInstructions }: RecipeStepsProps) {
 

@@ -1,4 +1,4 @@
-import type { Recipe, RecipeSearchResponse, Ingredient, RecipeByIngredients } from "./apiType";
+import type { Recipe, RecipeSearchResponse, Ingredient, RecipeByIngredients } from "../types";
 import { mockRecipes, mockIngredients, mockRecipeDetails } from "./mockData";
 
 // Helper: Converte Recipe in RecipeByIngredients per il search

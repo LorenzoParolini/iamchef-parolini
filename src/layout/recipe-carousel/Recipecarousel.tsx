@@ -1,16 +1,11 @@
 import RecipeCard from './recipe-card/RecipeCard';
 import './Recipecarousel.css'
-import type { RecipeByIngredients } from '../../service/apiType';
+import type { RecipeCarouselProps } from '../../types';
 
 // carousel mostra lista di ricette
 // riceve dati dal container layout
 
-interface RecipecarouselProps {
-  recipes: RecipeByIngredients[];
-  onRecipeClick: (recipe: RecipeByIngredients) => void;
-}
-
-function Recipecarousel({ recipes, onRecipeClick }: RecipecarouselProps) {
+function Recipecarousel({ recipes, onRecipeClick }: RecipeCarouselProps) {
 
   // mostra messaggio se non ci sono ricette
   if (recipes.length === 0) {

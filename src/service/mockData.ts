@@ -2,7 +2,7 @@
 // https://spoonacular.com/food-api/docs
 // Dati basati su risposte reali dell'API Spoonacular
 
-import type { Recipe, Ingredient } from "./apiType";
+import type { Recipe, Ingredient } from "../types";
 
 // ========================================
 // MOCK COMPLETI - GET /recipes/{id}/information

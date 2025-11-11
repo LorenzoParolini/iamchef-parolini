@@ -201,7 +201,7 @@ export interface WeightPerServing {
 }
 
 // ========================================
-// Response types (deprecated - use specific types above)
+// Response types
 // ========================================
 export interface RecipeSearchResponse {
   results: RecipeByIngredients[];

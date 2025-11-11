@@ -1,13 +1,9 @@
 import Badge from './badge/Badge';
 import './Badges.css'
+import type { BadgesProps } from '../../types';
 
 // badges riceve ingredienti e funzione per rimuoverli
 // non gestisce stato proprio
-
-interface BadgesProps {
-  ingredients: string[];
-  onRemoveIngredient: (ingredient: string) => void;
-}
 
 function Badges({ ingredients, onRemoveIngredient }: BadgesProps) {
 

@@ -2,14 +2,10 @@ import { useState } from 'react';
 import './SearchBar.css'
 import AddButton from './add-button/AddButton';
 import { autocompleteIngredients } from '../../service/utils';
-import type { Ingredient } from '../../service/apiType';
+import type { Ingredient, SearchBarProps } from '../../types';
 
 // searchbar è presentational
 // riceve funzioni dal padre e gestisce solo input locale
-
-interface SearchBarProps {
-  onAddIngredient: (ingredient: string) => void;
-}
 
 function SearchBar({ onAddIngredient }: SearchBarProps) {
 

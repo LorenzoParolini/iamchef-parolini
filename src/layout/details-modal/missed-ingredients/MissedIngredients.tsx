@@ -1,12 +1,8 @@
 import './MissedIngredients.css'
-import type { ExtendedIngredient } from '../../../service/apiType';
+import type { MissedIngredientsProps } from '../../../types';
 
 // mostra lista ingredienti mancanti
 // quelli che la ricetta richiede ma non hai
-
-interface MissedIngredientsProps {
-  ingredients: ExtendedIngredient[];
-}
 
 function MissedIngredients({ ingredients }: MissedIngredientsProps) {
 

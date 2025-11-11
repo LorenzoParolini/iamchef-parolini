@@ -9,7 +9,7 @@ import SearchBar from './search-bar/SearchBar'
 import DetailsModal from './details-modal/DetailsModal'
 import { useIngredients } from '../hooks/useIngredients'
 import { searchRecipesByIngredients, getRecipeInformation } from '../service/utils'
-import type { Recipe, RecipeByIngredients } from '../service/apiType'
+import type { Recipe, RecipeByIngredients } from '../types'
 
 // layout è il container che gestisce stato e logica
 // i componenti figli sono presentational e ricevono props

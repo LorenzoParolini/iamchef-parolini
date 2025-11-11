@@ -1,12 +1,9 @@
 import './ResultCounter.css'
+import type { ResultCounterProps } from '../../types';
 
 // DESIGN PATTERN: Presentational Component
 // ResultCounter riceve il numero di ricette trovate tramite props
 // Non calcola nulla, mostra solo il dato ricevuto
-
-interface ResultCounterProps {
-  count: number; // Numero di ricette trovate
-}
 
 function ResultCounter({ count }: ResultCounterProps) {
 

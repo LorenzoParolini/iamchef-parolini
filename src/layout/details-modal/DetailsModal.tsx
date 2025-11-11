@@ -1,16 +1,10 @@
 import './DetailsModal.css'
-import type { Recipe } from '../../service/apiType';
+import type { DetailsModalProps } from '../../types';
 import InfoBadge from './info-badge/InfoBadge';
 import MissedIngredients from './missed-ingredients/MissedIngredients';
 
 // modal per dettagli completi ricetta
 // appare quando clicchi su una card
-
-interface DetailsModalProps {
-  recipe: Recipe;
-  selectedIngredients: string[];
-  onClose: () => void;
-}
 
 function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProps) {
 

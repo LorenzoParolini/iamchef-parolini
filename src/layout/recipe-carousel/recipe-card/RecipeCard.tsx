@@ -1,13 +1,8 @@
 import './RecipeCard.css'
-import type { RecipeByIngredients } from '../../../service/apiType';
+import type { RecipeCardProps } from '../../../types';
 
 // recipecard mostra una singola ricetta
 // riceve dati tramite props
-
-interface RecipeCardProps {
-  recipe: RecipeByIngredients;
-  onClick: () => void;
-}
 
 function RecipeCard({ recipe, onClick }: RecipeCardProps) {
 

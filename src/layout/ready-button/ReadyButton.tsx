@@ -1,11 +1,8 @@
 import './ReadyButton.css'
+import type { ReadyButtonProps } from '../../types';
 
 // DESIGN PATTERN: Presentational Component
 // ReadyButton riceve la funzione onClick dal padre e la esegue quando viene cliccato
-
-interface ReadyButtonProps {
-  onClick: () => void; // Funzione chiamata quando si clicca sul bottone
-}
 
 function ReadyButton({ onClick }: ReadyButtonProps) {
 
