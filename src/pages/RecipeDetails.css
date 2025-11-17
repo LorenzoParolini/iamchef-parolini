@@ -1,0 +1,13 @@
+/* RecipeDetails Page Styles */
+
+.recipe-details-page {
+  /* Assicura che il modal copra tutta la pagina */
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 
+  Il DetailsModal ha già i suoi stili
+  Qui aggiungiamo solo override se necessario per il contesto fullscreen
+*/

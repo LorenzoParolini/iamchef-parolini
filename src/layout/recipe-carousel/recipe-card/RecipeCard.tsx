@@ -1,12 +1,8 @@
 import './RecipeCard.css'
 import type { RecipeCardProps } from '../../../types';
 
-// recipecard mostra una singola ricetta
-// riceve dati tramite props
-
 function RecipeCard({ recipe, onClick }: RecipeCardProps) {
 
-  // Gli ingredienti mancanti sono già calcolati dall'API
   const missedCount = recipe.missedIngredientCount;
 
   return (

@@ -1,0 +1,32 @@
+/* DiscoverRecipes Page Styles */
+
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.back-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

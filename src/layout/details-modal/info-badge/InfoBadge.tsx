@@ -1,9 +1,7 @@
 import './InfoBadge.css'
 import type { InfoBadgeProps } from '../../../types';
 
-// mostra info con icona e valore
-// esempio: tempo, porzioni, calorie
-
+// badge con icona e valore
 function InfoBadge({ icon, label, value }: InfoBadgeProps) {
 
   return (

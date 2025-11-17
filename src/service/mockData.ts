@@ -1,15 +1,7 @@
-// Mock data based on Spoonacular API structure
-// https://spoonacular.com/food-api/docs
-// Dati basati su risposte reali dell'API Spoonacular
-
+// dati di esempio basati su spoonacular api
 import type { Recipe, Ingredient } from "../types";
 
-// ========================================
-// MOCK COMPLETI - GET /recipes/{id}/information
-// ========================================
-// Dettagli completi delle ricette
 export const mockRecipes: Recipe[] = [
-  // Recipe 1: Easy Tomato Basil Chicken – One Pot Meal
   {
     id: 1070648,
     title: "Easy Tomato Basil Chicken – One Pot Meal",
@@ -137,7 +129,6 @@ export const mockRecipes: Recipe[] = [
     aggregateLikes: 10
   },
 
-  // Recipe 2: Easy Gift Lasagna
   {
     id: 641974,
     title: "Easy Gift Lasagna",
@@ -265,7 +256,6 @@ export const mockRecipes: Recipe[] = [
     aggregateLikes: 2
   },
 
-  // Recipe 3: Baked Ziti
   {
     id: 633876,
     title: "Baked Ziti",
@@ -393,7 +383,6 @@ export const mockRecipes: Recipe[] = [
     aggregateLikes: 1
   },
 
-  // Recipe 4: Bird's Nest Marinara
   {
     id: 634995,
     title: "Bird's Nest Marinara",
@@ -713,14 +702,5 @@ export const mockIngredients: Ingredient[] = [
   { id: 1125, name: "egg yolk", image: "egg-yolk.jpg" }
 ];
 
-// ========================================
-// EXPORT per compatibilità con il codice esistente
-// ========================================
-// Questi export mantengono la compatibilità con utils.ts
-
-// mockRecipesByIngredients non serve più perché viene generato dinamicamente in utils.ts
-// ma lo esportiamo comunque per retrocompatibilità
 export const mockRecipesByIngredients = mockRecipes;
-
-// mockRecipeDetails è un alias di mockRecipes
 export const mockRecipeDetails = mockRecipes;

@@ -1,12 +1,8 @@
 import './MissedIngredients.css'
 import type { MissedIngredientsProps } from '../../../types';
 
-// mostra lista ingredienti mancanti
-// quelli che la ricetta richiede ma non hai
-
 function MissedIngredients({ ingredients }: MissedIngredientsProps) {
 
-  // se non manca niente mostra messaggio positivo
   if (ingredients.length === 0) {
     return (
       <div className="missed-ingredients">

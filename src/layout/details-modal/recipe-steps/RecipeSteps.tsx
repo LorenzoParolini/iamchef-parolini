@@ -1,11 +1,8 @@
 import './RecipeSteps.css'
 import type { RecipeStepsProps } from '../../../types';
 
-// mostra passi di preparazione ricetta
-
 function RecipeSteps({ instructions, simpleInstructions }: RecipeStepsProps) {
 
-  // se ci sono istruzioni strutturate
   if (instructions && instructions.length > 0) {
     return (
       <div className="recipe-steps">
@@ -27,7 +24,6 @@ function RecipeSteps({ instructions, simpleInstructions }: RecipeStepsProps) {
     );
   }
 
-  // altrimenti se ci sono istruzioni semplici
   if (simpleInstructions) {
     return (
       <div className="recipe-steps">
@@ -37,7 +33,6 @@ function RecipeSteps({ instructions, simpleInstructions }: RecipeStepsProps) {
     );
   }
 
-  // se non ci sono istruzioni
   return (
     <div className="recipe-steps">
       <h3>Preparazione</h3>

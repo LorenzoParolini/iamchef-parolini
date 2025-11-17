@@ -1,4 +1,3 @@
-// Export all API types
 export type {
   Ingredient,
   IngredientSearchResponse,
@@ -18,9 +17,8 @@ export type {
   CaloricBreakdown,
   WeightPerServing,
   RecipeSearchResponse,
-} from './api.types';
+} from './recipes.types';
 
-// Export all Component Props types
 export type {
   SearchBarProps,
   ReadyButtonProps,
@@ -34,3 +32,10 @@ export type {
   RecipeStepsProps,
   InfoBadgeProps,
 } from './component.types';
+
+export type {
+  Page,
+  SearchPageProps,
+  DiscoverRecipesProps,
+  RecipeDetailsProps,
+} from './pages.types';

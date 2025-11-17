@@ -2,22 +2,20 @@ import './DetailsModal.css'
 import type { DetailsModalProps } from '../../types';
 import InfoBadge from './info-badge/InfoBadge';
 import MissedIngredients from './missed-ingredients/MissedIngredients';
-
-// modal per dettagli completi ricetta
-// appare quando clicchi su una card
-
+import { getDifficulty, formatPrice } from '../../utils/recipe-details-utils';
 function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProps) {
 
-  // calcoliamo ingredienti mancanti
+  // ingredienti che mancano
   const missedIngredients = recipe.extendedIngredients.filter(ingredient => 
     !selectedIngredients.some(selected => 
       ingredient.name.toLowerCase().includes(selected.toLowerCase())
     )
   );
 
-  
+  const difficulty = getDifficulty(recipe.readyInMinutes);
+  const priceFormatted = formatPrice(recipe.pricePerServing);
 
-  // chiudi modal se clicchi sullo sfondo
+  // chiudi se clicchi fuori
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -61,12 +59,12 @@ function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProp
             <InfoBadge 
               icon="💵" 
               label="Cost" 
-              value={`${recipe.pricePerServing.toFixed(2)} $`}
+              value={priceFormatted}
             />
             <InfoBadge 
-              icon="🔥" 
-              label="Calories" 
-              value={recipe.nutrition?.nutrients.find(n => n.name === 'Calories')?.amount || '650 kcal'} 
+              icon="📊" 
+              label="Difficulty" 
+              value={difficulty}
             />
           </div>
 

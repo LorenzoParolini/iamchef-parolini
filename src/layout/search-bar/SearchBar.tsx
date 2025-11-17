@@ -4,28 +4,18 @@ import AddButton from './add-button/AddButton';
 import { autocompleteIngredients } from '../../service/utils';
 import type { Ingredient, SearchBarProps } from '../../types';
 
-// searchbar è presentational
-// riceve funzioni dal padre e gestisce solo input locale
-
 function SearchBar({ onAddIngredient }: SearchBarProps) {
 
-  // stato per il testo nell'input
   const [inputValue, setInputValue] = useState('');
-  
-  // stato per i suggerimenti trovati
   const [suggestions, setSuggestions] = useState<Ingredient[]>([]);
-  
-  // stato per mostrare/nascondere il dropdown
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // chiamata ogni volta che digiti
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
     
-    // DOAPI
-    // cerchiamo suggerimenti solo se ha scritto almeno 2 lettere
-    if (value.length >= 2) {
+    // todo: qui andrà chiamata api
+    if (value.length >= 1) {
       const results = autocompleteIngredients(value);
       setSuggestions(results);
       setShowSuggestions(true);
@@ -34,7 +24,6 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
     }
   };
 
-  // quando clicchi su un suggerimento
   const handleSelectSuggestion = (ingredient: Ingredient) => {
     onAddIngredient(ingredient.name);
     setInputValue('');

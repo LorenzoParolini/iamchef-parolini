@@ -1,9 +1,4 @@
-// Type definitions based on Spoonacular API structure
-// https://spoonacular.com/food-api/docs
-
-// ========================================
-// GET /food/ingredients/search
-// ========================================
+// types basati su spoonacular api
 export interface Ingredient {
   id: number;
   name: string;
@@ -17,9 +12,6 @@ export interface IngredientSearchResponse {
   totalResults: number;
 }
 
-// ========================================
-// GET /recipes/findByIngredients
-// ========================================
 export interface RecipeIngredient {
   aisle: string;
   amount: number;
@@ -46,12 +38,9 @@ export interface RecipeByIngredients {
   unusedIngredients: RecipeIngredient[];
   usedIngredientCount: number;
   usedIngredients: RecipeIngredient[];
-  readyInMinutes?: number; // Optional: non sempre disponibile dall'API findByIngredients
+  readyInMinutes?: number;
 }
 
-// ========================================
-// GET /recipes/{id}/information
-// ========================================
 export interface ExtendedIngredient {
   aisle: string;
   amount: number;
@@ -200,9 +189,6 @@ export interface WeightPerServing {
   unit: string;
 }
 
-// ========================================
-// Response types
-// ========================================
 export interface RecipeSearchResponse {
   results: RecipeByIngredients[];
   offset: number;
