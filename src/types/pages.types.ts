@@ -3,11 +3,11 @@ import type { Recipe, RecipeByIngredients } from './recipes.types';
 export type Page = 'search' | 'discover' | 'details';
 
 export interface SearchPageProps {
-  onSearch: (recipes: RecipeByIngredients[], selectedIngredients: string[]) => void;
+  onSearch: (selectedIngredients: string[]) => void;
 }
 
 export interface DiscoverRecipesProps {
-  recipes: RecipeByIngredients[];
+  selectedIngredients: string[];
   onRecipeClick: (recipe: RecipeByIngredients, currentIndex: number) => void;
   onBack: () => void;
   id?: number;

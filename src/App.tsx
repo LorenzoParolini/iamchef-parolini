@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Layout from './layout/Layout';
 import Header from './layout/header/Header';
 import SearchPage from './pages/SearchPage';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import { getRecipeInformation } from './service/utils';
+import { useApi, getRecipeInformationURL } from './hooks/useApi';
 import type { Page, Recipe, RecipeByIngredients } from './types';
 
 // componente principale che gestisce routing e stato globale
@@ -13,9 +13,6 @@ function App() {
   
   // quale pagina mostrare
   const [currentPage, setCurrentPage] = useState<Page>('search');
-  
-  // ricette trovate dalla ricerca
-  const [recipes, setRecipes] = useState<RecipeByIngredients[]>([]);
   
   // ricetta selezionata per vedere dettagli
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
@@ -25,25 +22,32 @@ function App() {
   
   // indice corrente nel carousel
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState<number>(0);
+
+  // URL per chiamata API dettagli ricetta
+  const [recipeDetailsURL, setRecipeDetailsURL] = useState<string>("");
+
+  // chiamata API per dettagli ricetta
+  const { data: recipeDetails } = useApi<Recipe>(recipeDetailsURL);
   
   // quando finisce la ricerca nella search page
-  const handleSearchComplete = (foundRecipes: RecipeByIngredients[], ingredients: string[]) => {
-    setRecipes(foundRecipes);
+  const handleSearchComplete = (ingredients: string[]) => {
     setSelectedIngredients(ingredients);
     setCurrentPage('discover');
   };
   
   // quando clicchi su una ricetta
   const handleRecipeClick = (recipe: RecipeByIngredients, currentIndex: number) => {
-    // todo: qui andrà chiamata api per i dettagli
-    const fullRecipe = getRecipeInformation(recipe.id);
-    
-    if (fullRecipe) {
-      setSelectedRecipe(fullRecipe);
-      setCurrentRecipeIndex(currentIndex);
+    setCurrentRecipeIndex(currentIndex);
+    setRecipeDetailsURL(getRecipeInformationURL(recipe.id));
+  };
+
+  // quando arrivano i dettagli della ricetta, passa alla pagina dettagli
+  useEffect(() => {
+    if (recipeDetails) {
+      setSelectedRecipe(recipeDetails);
       setCurrentPage('details');
     }
-  };
+  }, [recipeDetails]);
   
   // torna indietro dai dettagli
   const handleBackToDiscover = (currentIndex: number) => {
@@ -54,8 +58,8 @@ function App() {
   
   // torna alla ricerca
   const handleBackToSearch = () => {
-    setRecipes([]);
     setSelectedRecipe(null);
+    setSelectedIngredients([]);
     setCurrentPage('search');
   };
 
@@ -68,7 +72,7 @@ function App() {
     case 'discover':
       mainContent = (
         <DiscoverRecipes 
-          recipes={recipes}
+          selectedIngredients={selectedIngredients}
           onRecipeClick={handleRecipeClick}
           onBack={handleBackToSearch}
           id={currentRecipeIndex}

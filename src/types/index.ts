@@ -1,6 +1,7 @@
 export type {
   Ingredient,
   IngredientSearchResponse,
+  IngredientSearchResult,
   RecipeIngredient,
   RecipeByIngredients,
   ExtendedIngredient,

@@ -1,5 +1,5 @@
-import type { Recipe, RecipeSearchResponse, Ingredient, RecipeByIngredients } from "../types";
-import { mockRecipes, mockIngredients, mockRecipeDetails } from "./mockData";
+import type { Recipe, RecipeSearchResponse, RecipeByIngredients } from "../types";
+import { mockRecipes, mockRecipeDetails } from "./mockData";
 
 // converte ricetta in formato search
 function recipeToByIngredients(recipe: Recipe, selectedIngredients: string[]): RecipeByIngredients {
@@ -49,7 +49,7 @@ function recipeToByIngredients(recipe: Recipe, selectedIngredients: string[]): R
 
 // cerca ricette per ingredienti
 // todo: sostituire con chiamata api vera
-export function searchRecipesByIngredients(ingredients: string[]): RecipeSearchResponse {
+export async function searchRecipesByIngredients(ingredients: string[]): Promise<RecipeSearchResponse> {
   const filtered = mockRecipes.filter((recipe: Recipe) => {
     const recipeIngredients = recipe.extendedIngredients.map(ing => ing.name.toLowerCase());
     return ingredients.some(ing => recipeIngredients.some(recipeIng => recipeIng.includes(ing.toLowerCase())));
@@ -67,18 +67,6 @@ export function searchRecipesByIngredients(ingredients: string[]): RecipeSearchR
 
 // prende dettagli ricetta
 // todo: sostituire con chiamata api vera
-export function getRecipeInformation(id: number): Recipe | undefined {
+export async function getRecipeInformation(id: number): Promise<Recipe | undefined> {
   return mockRecipeDetails.find((recipe: Recipe) => recipe.id === id);
-}
-
-// cerca ingredienti
-// todo: sostituire con chiamata api vera
-export function searchIngredients(query: string): Ingredient[] {
-  return mockIngredients.filter((ingredient: Ingredient) =>
-    ingredient.name.toLowerCase().includes(query.toLowerCase())
-  );
-}
-
-export function autocompleteIngredients(query: string): Ingredient[] {
-  return searchIngredients(query).slice(0, 5);
 }

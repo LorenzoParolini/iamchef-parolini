@@ -2,7 +2,6 @@ import SearchBar from '../layout/search-bar/SearchBar';
 import Badges from '../layout/badges/Badges';
 import ReadyButton from '../layout/ready-button/ReadyButton';
 import { useIngredients } from '../hooks/useIngredients';
-import { searchRecipesByIngredients } from '../service/utils';
 import type { SearchPageProps } from '../types';
 
 // pagina iniziale per cercare ricette
@@ -13,18 +12,7 @@ function SearchPage({ onSearch }: SearchPageProps) {
 
   // quando clicchi ready
   const handleSearch = () => {
-    // todo: qui andrà chiamata api
-    const result = searchRecipesByIngredients(selectedIngredients);
-    
-    // ordina per ingredienti mancanti e tempo
-    const sortedRecipes = result.results.sort((a, b) => {
-      if (a.missedIngredientCount !== b.missedIngredientCount) {
-        return a.missedIngredientCount - b.missedIngredientCount;
-      }
-      return (a.readyInMinutes || 999) - (b.readyInMinutes || 999);
-    });
-    
-    onSearch(sortedRecipes, selectedIngredients);
+    onSearch(selectedIngredients);
   };
 
   return (

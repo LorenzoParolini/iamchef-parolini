@@ -5,6 +5,12 @@ export interface Ingredient {
   image: string;
 }
 
+export interface IngredientSearchResult {
+  data: Ingredient[] | null;
+  loading: boolean;
+  error: string | null;
+}
+
 export interface IngredientSearchResponse {
   results: Ingredient[];
   offset: number;
