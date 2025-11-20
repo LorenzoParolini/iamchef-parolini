@@ -2,16 +2,20 @@ import { useState, useEffect } from 'react';
 import ResultCounter from '../layout/result-counter/ResultCounter';
 import RecipeCarousel from '../layout/recipe-carousel/Recipecarousel';
 import { useApi, getRecipesByIngredientsURL } from '../hooks/useApi';
+import useAPIStore from '../store/useAPIStore';
 import type { DiscoverRecipesProps, RecipeByIngredients } from '../types';
 import './DiscoverRecipes.css';
 
 // pagina con i risultati della ricerca
 function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: DiscoverRecipesProps) {
+  // Ottieni l'API key dallo store
+  const apiKey = useAPIStore((state) => state.ApiKey);
+  
   // mantiene la posizione corrente nel carousel
   const [currentIndex, setCurrentIndex] = useState<number>(id || 0);
   
   // chiamata API per ricette
-  const { data: recipes, loading, error } = useApi<RecipeByIngredients[]>(getRecipesByIngredientsURL(selectedIngredients));
+  const { data: recipes, loading, error } = useApi<RecipeByIngredients[]>(getRecipesByIngredientsURL(selectedIngredients, apiKey));
   
   // ricette ordinate
   const [sortedRecipes, setSortedRecipes] = useState<RecipeByIngredients[]>([]);

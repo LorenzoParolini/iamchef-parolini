@@ -56,32 +56,32 @@ export function useApi<T = any>(url: string): UseApiReturn<T> {
 // ?API_KEY = ${API_KEY}
 // query=${debouncedSearchingIng}&number=${resultnum}
 
-
-export const getIngredientURL = (query: string) => {
+export const getIngredientURL = (query: string, apiKey: string) => {
     const ENDPOINT = "/food/ingredients/search";
     const RESULTS_NUM = 100;
 
-    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${import.meta.env.VITE_BASE_URL_KEY}&query=${query}&number=${RESULTS_NUM}`;
+    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${apiKey}&query=${query}&number=${RESULTS_NUM}`;
 }
 
 
 // https://api.spoonacular.com BASE_URL
 // /recipes/findByIngredients ENDPOINT
 // ingredients=${ingredientsString}&number=${RESULTS_NUM}
-export const getRecipesByIngredientsURL = (ingredients: string[]) => {
+
+export const getRecipesByIngredientsURL = (ingredients: string[], apiKey: string) => {
     const ENDPOINT = "/recipes/findByIngredients";
     const RESULTS_NUM = 100;
     const ingredientsString = ingredients.join(',+');
 
-    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${import.meta.env.VITE_BASE_URL_KEY}&ingredients=${ingredientsString}&number=${RESULTS_NUM}`;
+    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${apiKey}&ingredients=${ingredientsString}&number=${RESULTS_NUM}`;
 }
 
 
 // https://api.spoonacular.com BASE_URL
 // /recipes/{id}/information ENDPOINT
 
-export const getRecipeInformationURL = (id: number) => {
+export const getRecipeInformationURL = (id: number, apiKey: string) => {
     const ENDPOINT = `/recipes/${id}/information`;
 
-    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${import.meta.env.VITE_BASE_URL_KEY}&includeNutrition=false`;
+    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${apiKey}&includeNutrition=false`;
 }

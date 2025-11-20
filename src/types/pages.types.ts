@@ -1,6 +1,6 @@
 import type { Recipe, RecipeByIngredients } from './recipes.types';
 
-export type Page = 'search' | 'discover' | 'details';
+export type Page = 'setApi' | 'search' | 'discover' | 'details';
 
 export interface SearchPageProps {
   onSearch: (selectedIngredients: string[]) => void;

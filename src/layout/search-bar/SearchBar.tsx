@@ -4,12 +4,16 @@ import AddButton from './add-button/AddButton';
 import type { Ingredient, SearchBarProps } from '../../types';
 import { useDebounce } from '../../hooks/useDebounce';
 import { getIngredientURL, useApi } from '../../hooks/useApi';
+import useAPIStore from '../../store/useAPIStore';
 
 function SearchBar({ onAddIngredient }: SearchBarProps) {
 
   // State per il valore dell'input e le suggerimenti
   const [inputValue, setInputValue] = useState('');
   const debouncedInputValue = useDebounce(inputValue, 300);
+
+  // Ottieni l'API key dallo store
+  const apiKey = useAPIStore((state) => state.ApiKey);
 
   // url per chiamata api
   const [apiURL, setApiURL] = useState<string>("");
@@ -22,13 +26,13 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
 
   useEffect(() => {
     if (debouncedInputValue.length >= 1) { //se ha almeno 1 carattere
-      setApiURL(getIngredientURL(debouncedInputValue));
+      setApiURL(getIngredientURL(debouncedInputValue, apiKey));
       setShowSuggestions(true);
     } else {
       setShowSuggestions(false);
     }
     
-  }, [debouncedInputValue]);
+  }, [debouncedInputValue, apiKey]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

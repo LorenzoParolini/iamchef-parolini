@@ -5,14 +5,19 @@ import Header from './layout/header/Header';
 import SearchPage from './pages/SearchPage';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import RecipeDetails from './pages/RecipeDetails';
+import SetApiPage from './pages/set-api-page/SetApiPage';
 import { useApi, getRecipeInformationURL } from './hooks/useApi';
+import useAPIStore from './store/useAPIStore';
 import type { Page, Recipe, RecipeByIngredients } from './types';
 
 // componente principale che gestisce routing e stato globale
 function App() {
   
+  // Ottieni l'API key dallo store
+  const apiKey = useAPIStore((state) => state.ApiKey);
+  
   // quale pagina mostrare
-  const [currentPage, setCurrentPage] = useState<Page>('search');
+  const [currentPage, setCurrentPage] = useState<Page>('setApi');
   
   // ricetta selezionata per vedere dettagli
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
@@ -38,7 +43,7 @@ function App() {
   // quando clicchi su una ricetta
   const handleRecipeClick = (recipe: RecipeByIngredients, currentIndex: number) => {
     setCurrentRecipeIndex(currentIndex);
-    setRecipeDetailsURL(getRecipeInformationURL(recipe.id));
+    setRecipeDetailsURL(getRecipeInformationURL(recipe.id, apiKey));
   };
 
   // quando arrivano i dettagli della ricetta, passa alla pagina dettagli
@@ -63,9 +68,17 @@ function App() {
     setCurrentPage('search');
   };
 
+  // quando l'utente salva l'API key
+  const handleApiKeySaved = () => {
+    setCurrentPage('search');
+  };
+
   let mainContent = null;
   
   switch (currentPage) {
+    case 'setApi':
+      mainContent = <SetApiPage onApiKeySaved={handleApiKeySaved} />;
+      break;
     case 'search':
       mainContent = <SearchPage onSearch={handleSearchComplete} />;
       break;
@@ -95,7 +108,7 @@ function App() {
 
   return (
     <Layout
-      header={currentPage !== 'search' ? <Header /> : undefined}
+      header={currentPage !== 'setApi' ? <Header /> : undefined}
       main={mainContent}
     />
   );
