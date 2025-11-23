@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './SearchBar.css'
-import AddButton from './add-button/AddButton';
+// import AddButton from './add-button/AddButton';
 import type { Ingredient, SearchBarProps } from '../../types';
 import { useDebounce } from '../../hooks/useDebounce';
 import { getIngredientURL, useApi } from '../../hooks/useApi';
@@ -96,7 +96,7 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
             </li>
           </ul>
         </div>
-        <AddButton />
+        {/* <AddButton /> */}
       </form>
     </>
   );
