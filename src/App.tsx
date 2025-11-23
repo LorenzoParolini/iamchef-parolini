@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Layout from './layout/Layout';
 import Header from './layout/header/Header';
-import SearchPage from './pages/SearchPage';
-import DiscoverRecipes from './pages/DiscoverRecipes';
-import RecipeDetails from './pages/RecipeDetails';
+import SearchPage from './pages/search-page/SearchPage';
+import DiscoverRecipes from './pages/dicover-recipes/DiscoverRecipes';
+import RecipeDetails from './pages/recipe-details/RecipeDetails';
 import SetApiPage from './pages/set-api-page/SetApiPage';
 import { useApi, getRecipeInformationURL } from './hooks/useApi';
 import useAPIStore from './store/useAPIStore';
 import type { Page, Recipe, RecipeByIngredients } from './types';
+import Footer from './layout/footer/Footer';
 
 // componente principale che gestisce routing e stato globale
 function App() {
@@ -110,6 +111,7 @@ function App() {
     <Layout
       header={currentPage !== 'setApi' ? <Header /> : undefined}
       main={mainContent}
+      footer={<Footer />}
     />
   );
 }

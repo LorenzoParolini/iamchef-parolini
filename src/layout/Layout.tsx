@@ -4,7 +4,7 @@ import './Layout.css'
 interface LayoutProps {
   header?: React.ReactNode;
   main: React.ReactNode;
-  footer?: React.ReactNode;
+  footer: React.ReactNode;
 }
 
 function Layout({ header, main, footer }: LayoutProps) {

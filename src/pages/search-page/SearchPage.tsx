@@ -1,8 +1,8 @@
-import SearchBar from '../layout/search-bar/SearchBar';
-import Badges from '../layout/badges/Badges';
-import ReadyButton from '../layout/ready-button/ReadyButton';
-import { useIngredients } from '../hooks/useIngredients';
-import type { SearchPageProps } from '../types';
+import SearchBar from '../../components/search-bar/SearchBar';
+import Badges from '../../components/badges/Badges';
+import ReadyButton from '../../components/ready-button/ReadyButton';
+import { useIngredients } from '../../hooks/useIngredients';
+import type { SearchPageProps } from '../../types';
 
 // pagina iniziale per cercare ricette
 function SearchPage({ onSearch }: SearchPageProps) {

@@ -1,5 +1,5 @@
-import DetailsModal from '../layout/details-modal/DetailsModal';
-import type { RecipeDetailsProps } from '../types';
+import DetailsModal from '../../components/details-modal/DetailsModal';
+import type { RecipeDetailsProps } from '../../types';
 import './RecipeDetails.css';
 
 // pagina con i dettagli della ricetta
