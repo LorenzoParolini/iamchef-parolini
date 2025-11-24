@@ -65,7 +65,6 @@ function App() {
   // torna alla ricerca
   const handleBackToSearch = () => {
     setSelectedRecipe(null);
-    setSelectedIngredients([]);
     setCurrentPage('search');
   };
 
@@ -82,7 +81,10 @@ function App() {
       mainContent = <SetApiPage onApiKeySaved={handleApiKeySaved} />;
       break;
     case 'search':
-      mainContent = <SearchPage onSearch={handleSearchComplete} />;
+      mainContent = <SearchPage 
+        onSearch={handleSearchComplete} 
+        initialIngredients={selectedIngredients}
+      />;
       break;
     case 'discover':
       mainContent = (

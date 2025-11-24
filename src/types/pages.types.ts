@@ -4,6 +4,7 @@ export type Page = 'setApi' | 'search' | 'discover' | 'details';
 
 export interface SearchPageProps {
   onSearch: (selectedIngredients: string[]) => void;
+  initialIngredients: string[];
 }
 
 export interface DiscoverRecipesProps {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 // hook per gestire gli ingredienti
-export function useIngredients() {
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+export function useIngredients(initialIngredients: string[] = []) {
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(initialIngredients);
 
   const addIngredient = (ingredient: string) => {
     if (!selectedIngredients.includes(ingredient)) {

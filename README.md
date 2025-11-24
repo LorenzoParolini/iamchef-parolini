@@ -6,8 +6,7 @@
 - [x] sistemare problema doppia chimata api (findByIngredients)
 - [x] tempo ingredienti non visualizzato (N/A)
 - [x] ritorno su prima ricetta dopo aver chiuso modale dettagli
-- [ ] gestiire errori
-    - [ ] api key
-    - [ ] nessuna ricetta trovata
+- [x] gestiire errori nessuna ricetta trovata
+- [x] salva gli ingredienti selezionati per un'altra ricerca
 - [ ] sistemare leggibilità in generale
 - [ ] cercare eventauli altri errori

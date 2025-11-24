@@ -5,10 +5,10 @@ import { useIngredients } from '../../hooks/useIngredients';
 import type { SearchPageProps } from '../../types';
 
 // pagina iniziale per cercare ricette
-function SearchPage({ onSearch }: SearchPageProps) {
+function SearchPage({ onSearch, initialIngredients }: SearchPageProps) {
 
   // hook per gestire gli ingredienti
-  const { selectedIngredients, addIngredient, removeIngredient } = useIngredients();
+  const { selectedIngredients, addIngredient, removeIngredient } = useIngredients(initialIngredients);
 
   // quando clicchi ready
   const handleSearch = () => {
