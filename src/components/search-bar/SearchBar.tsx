@@ -10,7 +10,7 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
 
   // State per il valore dell'input e le suggerimenti
   const [inputValue, setInputValue] = useState('');
-  const debouncedInputValue = useDebounce(inputValue, 300);
+  const debouncedInputValue = useDebounce(inputValue, 500);
 
   // Ottieni l'API key dallo store
   const apiKey = useAPIStore((state) => state.ApiKey);

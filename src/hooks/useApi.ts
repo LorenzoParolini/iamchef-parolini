@@ -21,7 +21,11 @@ export function useApi<T = any>(url: string): UseApiReturn<T> {
         setError(null)
         const response = await fetch(url)
         const result = await response.json()
-        
+      
+        if (response.status === 402) {
+          throw new Error('API quota exceeded or invalid API key');
+        }
+
         if (!cancelled) {
           // Se la risposta ha un campo "results", usa quello (es. ingredienti)
           // Altrimenti usa l'intero risultato (es. recipe details o array di ricette)
