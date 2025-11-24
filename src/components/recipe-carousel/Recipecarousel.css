@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 120px;
+  top: 140px;
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 140px);
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-padding: 0;

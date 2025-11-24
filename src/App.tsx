@@ -74,10 +74,6 @@ function App() {
     setCurrentPage('search');
   };
 
-  const handleHomeClick = () => {
-    setCurrentPage('search');
-    console.log('Tornato alla home page');
-  };
 
   let mainContent = null;
   
@@ -114,7 +110,7 @@ function App() {
 
   return (
     <Layout
-      header={currentPage !== 'setApi' ? <Header onHomeClick={handleHomeClick} /> : undefined}
+      header={currentPage !== 'setApi' ? <Header onHomeClick={handleBackToSearch} /> : undefined}
       main={mainContent}
       footer={<Footer />}
     />

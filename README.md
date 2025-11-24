@@ -5,7 +5,7 @@
 - [x] sistemare addbutton (deprecato)
 - [x] sistemare problema doppia chimata api (findByIngredients)
 - [x] tempo ingredienti non visualizzato (N/A)
-- [ ] ritorno su prima ricetta dopo aver chiuso modale dettagli
+- [x] ritorno su prima ricetta dopo aver chiuso modale dettagli
 - [ ] gestiire errori
     - [ ] api key
     - [ ] nessuna ricetta trovata
