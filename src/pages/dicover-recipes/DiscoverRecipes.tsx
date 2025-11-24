@@ -14,6 +14,13 @@ function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: Dis
   // mantiene la posizione corrente nel carousel
   const [currentIndex, setCurrentIndex] = useState<number>(id || 0);
   
+  // Aggiorna currentIndex quando cambia id
+  useEffect(() => {
+    if (id !== undefined) {
+      setCurrentIndex(id);
+    }
+  }, [id]);
+  
   // chiamata API per ricette
   const { data: recipes, loading, error } = useApi<RecipeByIngredients[]>(getRecipesByIngredientsURL(selectedIngredients, apiKey));
   

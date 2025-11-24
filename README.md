@@ -4,7 +4,7 @@
 - [x] sistemare header (evento torna home, visualizzazione allo start)
 - [x] sistemare addbutton (deprecato)
 - [x] sistemare problema doppia chimata api (findByIngredients)
-- [ ] tempo ingredienti non visualizzato (N/A)
+- [x] tempo ingredienti non visualizzato (N/A)
 - [ ] ritorno su prima ricetta dopo aver chiuso modale dettagli
 - [ ] gestiire errori
     - [ ] api key
