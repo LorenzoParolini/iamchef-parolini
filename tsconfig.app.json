@@ -24,5 +24,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "bin/utils.ts", "bin/mockData.ts", "bin/add-button"]
+  "include": ["src", "bin/utils.ts", "bin/mockData.ts", "bin/add-button", "bin/recipe-steps"]
 }

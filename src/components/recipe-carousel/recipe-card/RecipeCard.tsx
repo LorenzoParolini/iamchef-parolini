@@ -23,12 +23,8 @@ function RecipeCard({ recipe, onClick }: RecipeCardProps) {
       <div className="info-zone">
         <div>
           <div className="info-item">
+            <span className="count-circle">{missedCount}</span>
             <p>Missed Ingredients</p>
-            <span>{missedCount}</span>
-          </div>
-          <div className="info-item">
-            <p>Ready in</p>
-            <span>{recipe.readyInMinutes ? `${recipe.readyInMinutes} min` : 'N/A'}</span>
           </div>
         </div>
       </div>

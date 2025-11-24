@@ -73,7 +73,7 @@ export const getRecipesByIngredientsURL = (ingredients: string[], apiKey: string
     const RESULTS_NUM = 100;
     const ingredientsString = ingredients.join(',+');
 
-    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${apiKey}&ingredients=${ingredientsString}&number=${RESULTS_NUM}`;
+    return `${import.meta.env.VITE_BASE_URL}${ENDPOINT}?apiKey=${apiKey}&ingredients=${ingredientsString}&number=${RESULTS_NUM}&addRecipeInformation=true`;
 }
 
 

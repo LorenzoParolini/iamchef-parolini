@@ -6,7 +6,8 @@ import type { RecipeCarouselProps } from '../../types';
 function Recipecarousel({ recipes, onRecipeClick, currentIndex, setCurrentIndex }: RecipeCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Scroll alla ricetta corrente quando cambia l'indice o si monta il componente
+  // Quando l'indice della ricetta corrente cambia (ad esempio dopo uno swipe o un click),
+  // facciamo scrollare il carousel in modo fluido fino a mostrare la card giusta.
   useEffect(() => {
     if (carouselRef.current && recipes.length > 0) {
       const cardHeight = carouselRef.current.scrollHeight / recipes.length;
@@ -17,21 +18,28 @@ function Recipecarousel({ recipes, onRecipeClick, currentIndex, setCurrentIndex 
     }
   }, [currentIndex, recipes.length]);
 
-  // Aggiorna currentIndex durante lo scroll manuale dell'utente
+  // gestione dello scrolling
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
+    let scrollTimeout: number;
+    
     const handleScroll = () => {
-      const cardHeight = carousel.scrollHeight / recipes.length;
-      const newIndex = Math.round(carousel.scrollTop / cardHeight);
-      if (newIndex !== currentIndex && newIndex >= 0 && newIndex < recipes.length) {
-        setCurrentIndex(newIndex);
-      }
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const cardHeight = carousel.scrollHeight / recipes.length;
+        const newIndex = Math.round(carousel.scrollTop / cardHeight);
+        if (newIndex !== currentIndex && newIndex >= 0 && newIndex < recipes.length) {
+          setCurrentIndex(newIndex);
+        }
+      }, 150);
     };
-
-    carousel.addEventListener('scroll', handleScroll);
-    return () => carousel.removeEventListener('scroll', handleScroll);
+    carousel.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(scrollTimeout);
+      carousel.removeEventListener('scroll', handleScroll);
+    };
   }, [recipes.length, currentIndex, setCurrentIndex]);
 
   if (recipes.length === 0) {
