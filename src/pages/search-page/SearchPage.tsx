@@ -13,6 +13,7 @@ function SearchPage({ onSearch, initialIngredients }: SearchPageProps) {
   // quando clicchi ready
   const handleSearch = () => {
     onSearch(selectedIngredients);
+    
   };
 
   return (

@@ -6,7 +6,7 @@ import SearchPage from './pages/search-page/SearchPage';
 import DiscoverRecipes from './pages/dicover-recipes/DiscoverRecipes';
 import RecipeDetails from './pages/recipe-details/RecipeDetails';
 import SetApiPage from './pages/set-api-page/SetApiPage';
-import { useApi, getRecipeInformationURL } from './hooks/useApi';
+import { useApi, getRecipeInformationURL, getRecipesByIngredientsURL } from './hooks/useApi';
 import useAPIStore from './store/useAPIStore';
 import type { Page, Recipe, RecipeByIngredients } from './types';
 import Footer from './layout/footer/Footer';
@@ -29,8 +29,14 @@ function App() {
   // indice corrente nel carousel
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState<number>(0);
 
+  // URL per chiamata API ricette per ingredienti
+  const [findByIngredientsURL, setFindByIngredientsURL] = useState<string>("");
+
   // URL per chiamata API dettagli ricetta
   const [recipeDetailsURL, setRecipeDetailsURL] = useState<string>("");
+
+  // chiamata API per ricette per ingredienti
+  const { data: recipes, loading: recipesLoading, error: recipesError } = useApi<RecipeByIngredients[]>(findByIngredientsURL);
 
   // chiamata API per dettagli ricetta
   const { data: recipeDetails } = useApi<Recipe>(recipeDetailsURL);
@@ -38,7 +44,9 @@ function App() {
   // quando finisce la ricerca nella search page
   const handleSearchComplete = (ingredients: string[]) => {
     setSelectedIngredients(ingredients);
+    setFindByIngredientsURL(getRecipesByIngredientsURL(ingredients, apiKey));
     setCurrentPage('discover');
+    setCurrentRecipeIndex(0);
   };
   
   // quando clicchi su una ricetta
@@ -59,6 +67,7 @@ function App() {
   const handleBackToDiscover = (currentIndex: number) => {
     setSelectedRecipe(null);
     setCurrentRecipeIndex(currentIndex);
+    setRecipeDetailsURL(""); // Resetta l'URL per evitare chiamate duplicate
     setCurrentPage('discover');
   };
   
@@ -89,7 +98,9 @@ function App() {
     case 'discover':
       mainContent = (
         <DiscoverRecipes 
-          selectedIngredients={selectedIngredients}
+          recipes={recipes}
+          loading={recipesLoading}
+          error={recipesError}
           onRecipeClick={handleRecipeClick}
           onBack={handleBackToSearch}
           id={currentRecipeIndex}

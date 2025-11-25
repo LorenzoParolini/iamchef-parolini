@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import ResultCounter from '../../components/result-counter/ResultCounter';
 import RecipeCarousel from '../../components/recipe-carousel/Recipecarousel';
-import { useApi, getRecipesByIngredientsURL } from '../../hooks/useApi';
-import useAPIStore from '../../store/useAPIStore';
 import type { DiscoverRecipesProps, RecipeByIngredients } from '../../types';
 import './DiscoverRecipes.css';
 
 // pagina con i risultati della ricerca
-function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: DiscoverRecipesProps) {
-  // Ottieni l'API key dallo store
-  const apiKey = useAPIStore((state) => state.ApiKey);
-
+function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id }: DiscoverRecipesProps) {
   // mantiene la posizione corrente nel carousel
   const [currentIndex, setCurrentIndex] = useState<number>(id || 0);
 
@@ -20,9 +15,6 @@ function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: Dis
       setCurrentIndex(id);
     }
   }, [id]);
-
-  // chiamata API per ricette
-  const { data: recipes, loading, error } = useApi<RecipeByIngredients[]>(getRecipesByIngredientsURL(selectedIngredients, apiKey));
 
   // ricette ordinate
   const [sortedRecipes, setSortedRecipes] = useState<RecipeByIngredients[]>([]);
@@ -49,7 +41,7 @@ function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: Dis
       {error && <div className="error-text">Errore: {error}</div>}
 
       {/* Mostra risultati quando disponibili */}
-      {!loading && !error && sortedRecipes.length > 0 && (
+      {!loading && !error && recipes && sortedRecipes.length > 0 && (
         <>
           <ResultCounter count={sortedRecipes.length} />
 
@@ -63,7 +55,7 @@ function DiscoverRecipes({ selectedIngredients, onRecipeClick, onBack, id }: Dis
       )}
 
       {/* Mostra messaggio se nessun risultato */}
-      {!loading && !error && sortedRecipes.length === 0 && (
+      {!loading && !error && recipes && sortedRecipes.length === 0 && (
         <div className="no-results-container">
           <div className="no-results-message">
             No recipes found 🙁. Please check that you've entered all ingredients correctly, or try removing some ingredients.

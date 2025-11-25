@@ -8,7 +8,9 @@ export interface SearchPageProps {
 }
 
 export interface DiscoverRecipesProps {
-  selectedIngredients: string[];
+  recipes: RecipeByIngredients[] | null;
+  loading: boolean;
+  error: string | null;
   onRecipeClick: (recipe: RecipeByIngredients, currentIndex: number) => void;
   onBack: () => void;
   id?: number;
