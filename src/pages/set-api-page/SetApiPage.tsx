@@ -12,7 +12,7 @@ interface SetApiPageProps {
 function SetApiPage({ onApiKeySaved }: SetApiPageProps) {
 
 
-  const setApiKey = useAPIStore((state) => state.setAPI);
+  const { setAPI } = useAPIStore();
   const [inputValue, setInputValue] = useState('');
 
 
@@ -23,7 +23,7 @@ function SetApiPage({ onApiKeySaved }: SetApiPageProps) {
   const handleSubmit = (e: React.FormEvent) => {
     if (isValidFormat(inputValue)) {
       e.preventDefault();
-      setApiKey(inputValue);
+      setAPI(inputValue);
       onApiKeySaved();
     } else {
       e.preventDefault();

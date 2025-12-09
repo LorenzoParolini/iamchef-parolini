@@ -17,12 +17,12 @@ import Footer from './layout/footer/Footer';
 
 // componente principale che gestisce routing e stato globale
 function App() {
-  
-  // Ottieni l'API key dallo store
-  const apiKey = useAPIStore((state) => state.ApiKey);
-  
-  // quale pagina mostrare
-  const [currentPage, setCurrentPage] = useState<Page>('setApi');
+  const { ApiKey: apiKey } = useAPIStore();
+
+  // Imposta la pagina iniziale in base alla presenza dell'API key
+  const [currentPage, setCurrentPage] = useState<Page>(
+    apiKey ? 'search' : 'setApi'
+  );
   
   // ricetta selezionata per vedere dettagli
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);

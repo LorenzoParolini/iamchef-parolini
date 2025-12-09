@@ -13,7 +13,7 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
   const debouncedInputValue = useDebounce(inputValue, 500);
 
   // Ottieni l'API key dallo store
-  const apiKey = useAPIStore((state) => state.ApiKey);
+  const { ApiKey: apiKey } = useAPIStore();
 
   // url per chiamata api
   const [apiURL, setApiURL] = useState<string>("");
