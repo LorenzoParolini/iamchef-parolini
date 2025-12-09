@@ -73,3 +73,18 @@
   transform: scale(0.98);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+.api-error-message {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #fff0f0;
+  color: #d32f2f;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 15px;
+  border-left: 4px solid #ff4d4f;
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.1);
+  margin: -10px 0;
+  line-height: 1.5;
+  text-align: left;
+}
