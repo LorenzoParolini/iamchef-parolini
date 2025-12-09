@@ -4,6 +4,10 @@ import ReadyButton from '../../components/ready-button/ReadyButton';
 import { useIngredients } from '../../hooks/useIngredients';
 import type { SearchPageProps } from '../../types';
 
+//TODO: rimuovere la prop onSearch, usare navigate di react router
+//TODO: navigare a /discover con query string degli ingredienti selezionati
+//TODO: rimuovere initialIngredients, leggere dalla query string se presente
+
 // pagina iniziale per cercare ricette
 function SearchPage({ onSearch, initialIngredients }: SearchPageProps) {
 

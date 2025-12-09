@@ -11,6 +11,10 @@ import useAPIStore from './store/useAPIStore';
 import type { Page, Recipe, RecipeByIngredients } from './types';
 import Footer from './layout/footer/Footer';
 
+//TODO: creare file router.tsx con configurazione delle rotte
+//TODO: sostituire lo switch case con il router provider
+//TODO: rimuovere lo stato currentPage, sarà gestito dall'url
+
 // componente principale che gestisce routing e stato globale
 function App() {
   
@@ -83,6 +87,8 @@ function App() {
   };
 
 
+  //TODO: rimuovere questo switch case e usare le rotte react router
+  //TODO: le rotte saranno: / (search), /discover (con query string ingredienti), /recipe/:id (dettagli)
   let mainContent = null;
   
   switch (currentPage) {

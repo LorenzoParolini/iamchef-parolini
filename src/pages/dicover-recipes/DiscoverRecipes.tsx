@@ -4,6 +4,12 @@ import RecipeCarousel from '../../components/recipe-carousel/Recipecarousel';
 import type { DiscoverRecipesProps, RecipeByIngredients } from '../../types';
 import './DiscoverRecipes.css';
 
+//TODO: rimuovere props recipes, loading, error - usare loader di react router o useApi con query string
+//TODO: leggere ingredienti dalla query string con useSearchParams
+//TODO: rimuovere onRecipeClick, usare navigate verso /recipe/:id
+//TODO: rimuovere onBack, usare navigate(-1) o navigate('/')
+//TODO: rimuovere prop id, sarà gestito dai params dell'url
+
 // pagina con i risultati della ricerca
 function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id }: DiscoverRecipesProps) {
   // mantiene la posizione corrente nel carousel

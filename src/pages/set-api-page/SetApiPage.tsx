@@ -2,6 +2,9 @@ import { useState } from 'react';
 import useAPIStore from '../../store/useAPIStore';
 import './SetApiPage.css'
 
+//TODO: rimuovere onApiKeySaved, usare navigate('/') dopo il salvataggio
+//TODO: questa pagina potrebbe essere una rotta protetta al contrario (se hai già l'api key vai alla home)
+
 interface SetApiPageProps {
   onApiKeySaved: () => void;
 }
