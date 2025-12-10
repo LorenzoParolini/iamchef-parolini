@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Layout from './layout/Layout';
 import Header from './layout/header/Header';
@@ -6,91 +6,68 @@ import SearchPage from './pages/search-page/SearchPage';
 import DiscoverRecipes from './pages/dicover-recipes/DiscoverRecipes';
 import RecipeDetails from './pages/recipe-details/RecipeDetails';
 import SetApiPage from './pages/set-api-page/SetApiPage';
-import { useApi, getRecipeInformationURL, getRecipesByIngredientsURL } from './hooks/useApi';
+import { useRecipeSearch } from './hooks/useRecipeSearch';
+import { useRecipeDetails } from './hooks/useRecipeDetails';
+import { usePageNavigation } from './hooks/usePageNavigation';
 import useAPIStore from './store/useAPIStore';
-import type { Page, Recipe, RecipeByIngredients } from './types';
+import type { RecipeByIngredients } from './types';
 import Footer from './layout/footer/Footer';
 
 //TODO: creare file router.tsx con configurazione delle rotte
 //TODO: sostituire lo switch case con il router provider
 //TODO: rimuovere lo stato currentPage, sarà gestito dall'url
 
-// componente principale che gestisce routing e stato globale
 function App() {
   const { ApiKey: apiKey } = useAPIStore();
 
-  // Imposta la pagina iniziale in base alla presenza dell'API key
-  const [currentPage, setCurrentPage] = useState<Page>(
+  // usa react router quando possibile, per ora gestiamo le pagine manualmente
+  const { currentPage, goToSearch, goToDiscover, goToDetails } = usePageNavigation(
     apiKey ? 'search' : 'setApi'
   );
-  
-  // ricetta selezionata per vedere dettagli
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  
-  // ingredienti che ha scelto l'utente
+
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   
-  // indice corrente nel carousel
-  const [currentRecipeIndex, setCurrentRecipeIndex] = useState<number>(0);
-
-  // URL per chiamata API ricette per ingredienti
-  const [findByIngredientsURL, setFindByIngredientsURL] = useState<string>("");
-
-  // URL per chiamata API dettagli ricetta
-  const [recipeDetailsURL, setRecipeDetailsURL] = useState<string>("");
-
-  // chiamata API per ricette per ingredienti
-  const { data: recipes, loading: recipesLoading, error: recipesError } = useApi<RecipeByIngredients[]>(findByIngredientsURL);
-
-  // chiamata API per dettagli ricetta
-  const { data: recipeDetails } = useApi<Recipe>(recipeDetailsURL);
+  // questo hook si occupa di chiamare l'API quando cambiano gli ingredienti
+  const { recipes, loading: recipesLoading, error: recipesError } = useRecipeSearch(
+    selectedIngredients, 
+    apiKey
+  );
   
-  // quando finisce la ricerca nella search page
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState<number>(0);
+  
+  // quando selezioni una ricetta, questo hook carica automaticamente i dettagli
+  const { selectedRecipe, selectRecipe, clearRecipe } = useRecipeDetails(apiKey);
+
   const handleSearchComplete = (ingredients: string[]) => {
     setSelectedIngredients(ingredients);
-    setFindByIngredientsURL(getRecipesByIngredientsURL(ingredients, apiKey));
-    setCurrentPage('discover');
+    goToDiscover();
     setCurrentRecipeIndex(0);
   };
-  
-  // quando clicchi su una ricetta
+
+  const handleApiKeySaved = () => {
+    goToSearch();
+  };
+
   const handleRecipeClick = (recipe: RecipeByIngredients, currentIndex: number) => {
     setCurrentRecipeIndex(currentIndex);
-    setRecipeDetailsURL(getRecipeInformationURL(recipe.id, apiKey));
+    selectRecipe(recipe.id);
+    goToDetails();
   };
 
-  // quando arrivano i dettagli della ricetta, passa alla pagina dettagli
-  useEffect(() => {
-    if (recipeDetails) {
-      setSelectedRecipe(recipeDetails);
-      setCurrentPage('details');
-    }
-  }, [recipeDetails]);
-  
-  // torna indietro dai dettagli
-  const handleBackToDiscover = (currentIndex: number) => {
-    setSelectedRecipe(null);
-    setCurrentRecipeIndex(currentIndex);
-    setRecipeDetailsURL(""); // Resetta l'URL per evitare chiamate duplicate
-    setCurrentPage('discover');
-  };
-  
-  // torna alla ricerca
   const handleBackToSearch = () => {
-    setSelectedRecipe(null);
-    setCurrentPage('search');
+    clearRecipe();
+    goToSearch();
   };
 
-  // quando l'utente salva l'API key
-  const handleApiKeySaved = () => {
-    setCurrentPage('search');
+  const handleBackToDiscover = (currentIndex: number) => {
+    clearRecipe();
+    setCurrentRecipeIndex(currentIndex);
+    goToDiscover();
   };
-
 
   //TODO: rimuovere questo switch case e usare le rotte react router
   //TODO: le rotte saranno: / (search), /discover (con query string ingredienti), /recipe/:id (dettagli)
   let mainContent = null;
-  
   switch (currentPage) {
     case 'setApi':
       mainContent = <SetApiPage onApiKeySaved={handleApiKeySaved} />;
