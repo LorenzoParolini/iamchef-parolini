@@ -11,7 +11,7 @@ import './DiscoverRecipes.css';
 //TODO: rimuovere prop id, sarà gestito dai params dell'url
 
 // pagina con i risultati della ricerca
-function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id }: DiscoverRecipesProps) {
+function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id, onIndexChange, selectedRecipe }: DiscoverRecipesProps) {
   // mantiene la posizione corrente nel carousel
   const [currentIndex, setCurrentIndex] = useState<number>(id || 0);
 
@@ -21,6 +21,13 @@ function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id }:
       setCurrentIndex(id);
     }
   }, [id]);
+
+  // Quando cambia currentIndex localmente, notifica App
+  useEffect(() => {
+    if (onIndexChange) {
+      onIndexChange(currentIndex);
+    }
+  }, [currentIndex, onIndexChange]);
 
   // ricette ordinate
   const [sortedRecipes, setSortedRecipes] = useState<RecipeByIngredients[]>([]);
@@ -56,6 +63,7 @@ function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id }:
             onRecipeClick={onRecipeClick}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
+            selectedRecipe={selectedRecipe}
           />
         </>
       )}

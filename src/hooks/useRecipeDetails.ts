@@ -10,8 +10,17 @@ export function useRecipeDetails(apiKey: string) {
   // ID della ricetta da caricare (quando è null non fa chiamate)
   const [recipeId, setRecipeId] = useState<number | null>(null);
 
-  // costruisce l'URL solo quando ci sono sia recipeId che apiKey
-  const url = recipeId && apiKey ? getRecipeInformationURL(recipeId, apiKey) : '';
+  // URL come stato
+  const [url, setUrl] = useState('');
+
+  // costruisce l'URL quando cambiano recipeId o apiKey
+  useEffect(() => {
+    if (recipeId && apiKey) {
+      setUrl(getRecipeInformationURL(recipeId, apiKey));
+    } else {
+      setUrl('');
+    }
+  }, [recipeId, apiKey]);
   
   // fa la chiamata API (useApi gestisce loading, error, ecc.)
   const { data: recipeDetails } = useApi<Recipe>(url);

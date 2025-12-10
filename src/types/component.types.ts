@@ -14,14 +14,16 @@ export interface ResultCounterProps {
 
 export interface RecipeCarouselProps {
   recipes: RecipeByIngredients[];
-  onRecipeClick: (recipe: RecipeByIngredients, currentIndex: number) => void;
+  onRecipeClick: () => void;
   currentIndex: number;
   setCurrentIndex: (index: number) => void;
+  selectedRecipe: Recipe;
 }
 
 export interface RecipeCardProps {
   recipe: RecipeByIngredients;
   onClick: () => void;
+  selectedRecipe: Recipe;
 }
 
 export interface DetailsModalProps {
