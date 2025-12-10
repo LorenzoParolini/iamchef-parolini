@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Layout from './layout/Layout';
 import Header from './layout/header/Header';
@@ -10,7 +10,6 @@ import { useRecipeSearch } from './hooks/useRecipeSearch';
 import { useRecipeDetails } from './hooks/useRecipeDetails';
 import { usePageNavigation } from './hooks/usePageNavigation';
 import useAPIStore from './store/useAPIStore';
-import type { RecipeByIngredients } from './types';
 import Footer from './layout/footer/Footer';
 
 //TODO: creare file router.tsx con configurazione delle rotte
@@ -48,9 +47,7 @@ function App() {
     goToSearch();
   };
 
-  const handleRecipeClick = (recipe: RecipeByIngredients, currentIndex: number) => {
-    setCurrentRecipeIndex(currentIndex);
-    selectRecipe(recipe.id);
+  const handleRecipeClick = () => {
     goToDetails();
   };
 
@@ -64,6 +61,17 @@ function App() {
     setCurrentRecipeIndex(currentIndex);
     goToDiscover();
   };
+
+  const handleIndexChange = (newIndex: number) => {
+    setCurrentRecipeIndex(newIndex);
+  };
+
+  // quando cambia l'index, carica i dettagli della ricetta
+  useEffect(() => {
+    if (recipes && recipes[currentRecipeIndex]) {
+      selectRecipe(recipes[currentRecipeIndex].id);
+    }
+  }, [currentRecipeIndex, recipes, selectRecipe]);
 
   //TODO: rimuovere questo switch case e usare le rotte react router
   //TODO: le rotte saranno: / (search), /discover (con query string ingredienti), /recipe/:id (dettagli)
@@ -79,16 +87,22 @@ function App() {
       />;
       break;
     case 'discover':
-      mainContent = (
-        <DiscoverRecipes 
-          recipes={recipes}
-          loading={recipesLoading}
-          error={recipesError}
-          onRecipeClick={handleRecipeClick}
-          onBack={handleBackToSearch}
-          id={currentRecipeIndex}
-        />
-      );
+      if (selectedRecipe) {
+        mainContent = (
+          <DiscoverRecipes 
+            recipes={recipes}
+            loading={recipesLoading}
+            error={recipesError}
+            onRecipeClick={handleRecipeClick}
+            onBack={handleBackToSearch}
+            id={currentRecipeIndex}
+            onIndexChange={handleIndexChange}
+            selectedRecipe={selectedRecipe}
+          />
+        );
+      } else {
+        mainContent = <div className="loading-text">Caricamento dettagli...</div>;
+      }
       break;
     case 'details':
       if (selectedRecipe) {

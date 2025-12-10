@@ -54,23 +54,28 @@
 
 .recipe-card .info-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 20px;
   color: #fff;
 }
 
-.recipe-card .info-item:last-child {
-  margin-bottom: 0;
+.recipe-card .missed-ingredients,
+.recipe-card .ready-in-minutes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.recipe-card .info-item p {
+.recipe-card .missed-ingredients p,
+.recipe-card .ready-in-minutes p {
   margin: 0;
   font-size: 0.95rem;
 }
 
-.recipe-card .info-item .count-circle {
+.recipe-card .missed-ingredients .count-circle,
+.recipe-card .ready-in-minutes .count-circle {
   background-color: #C63939;
   color: #fff;
   width: 50px;

@@ -11,9 +11,11 @@ export interface DiscoverRecipesProps {
   recipes: RecipeByIngredients[] | null;
   loading: boolean;
   error: string | null;
-  onRecipeClick: (recipe: RecipeByIngredients, currentIndex: number) => void;
+  onRecipeClick: () => void;
   onBack: () => void;
   id?: number;
+  onIndexChange?: (index: number) => void;
+  selectedRecipe: Recipe;
 }
 
 export interface RecipeDetailsProps {
