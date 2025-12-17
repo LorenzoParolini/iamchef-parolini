@@ -49,7 +49,7 @@ function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProp
             <InfoBadge 
               icon="⏱️" 
               label="Ready in" 
-              value={`${recipe.readyInMinutes} min`} 
+              value={recipe.readyInMinutes ? `${recipe.readyInMinutes} min` : 'N/A'} 
             />
             <InfoBadge 
               icon="🍽️" 

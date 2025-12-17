@@ -34,9 +34,5 @@ export type {
   InfoBadgeProps,
 } from './component.types';
 
-export type {
-  Page,
-  SearchPageProps,
-  DiscoverRecipesProps,
-  RecipeDetailsProps,
-} from './pages.types';
+// pages types non più necessari con react router
+// export from './pages.types';

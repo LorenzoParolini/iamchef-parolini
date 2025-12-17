@@ -1,32 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import useAPIStore from '../../store/useAPIStore';
 import './SetApiPage.css'
 
-//TODO: rimuovere onApiKeySaved, usare navigate('/') dopo il salvataggio
-//TODO: questa pagina potrebbe essere una rotta protetta al contrario (se hai già l'api key vai alla home)
-
-interface SetApiPageProps {
-  onApiKeySaved: () => void;
-}
-
-function SetApiPage({ onApiKeySaved }: SetApiPageProps) {
-
-
-  const { setAPI } = useAPIStore();
+// pagina per configurare l'api key
+function SetApiPage() {
+  const navigate = useNavigate();
+  const { ApiKey, setAPI } = useAPIStore();
   const [inputValue, setInputValue] = useState('');
 
+  // redirect se api key già presente
+  useEffect(() => {
+    if (ApiKey) {
+      navigate('/', { replace: true });
+    }
+  }, [ApiKey, navigate]);
 
   const isValidFormat = (key: string) => {
     return /^[a-zA-Z0-9]{32}$/.test(key);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (isValidFormat(inputValue)) {
-      e.preventDefault();
       setAPI(inputValue);
-      onApiKeySaved();
-    } else {
-      e.preventDefault();
+      navigate('/');
     }
   };
 

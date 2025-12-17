@@ -1,33 +1,25 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
 import ResultCounter from '../../components/result-counter/ResultCounter';
 import RecipeCarousel from '../../components/recipe-carousel/Recipecarousel';
-import type { DiscoverRecipesProps, RecipeByIngredients } from '../../types';
+import { useApi, getRecipesByIngredientsURL } from '../../hooks/useApi';
+import useAPIStore from '../../store/useAPIStore';
+import type { RecipeByIngredients } from '../../types';
 import './DiscoverRecipes.css';
 
-//TODO: rimuovere props recipes, loading, error - usare loader di react router o useApi con query string
-//TODO: leggere ingredienti dalla query string con useSearchParams
-//TODO: rimuovere onRecipeClick, usare navigate verso /recipe/:id
-//TODO: rimuovere onBack, usare navigate(-1) o navigate('/')
-//TODO: rimuovere prop id, sarà gestito dai params dell'url
-
 // pagina con i risultati della ricerca
-function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id, onIndexChange, selectedRecipe }: DiscoverRecipesProps) {
-  // mantiene la posizione corrente nel carousel
-  const [currentIndex, setCurrentIndex] = useState<number>(id || 0);
+function DiscoverRecipes() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { ApiKey } = useAPIStore();
 
-  // Aggiorna currentIndex quando cambia id
-  useEffect(() => {
-    if (id !== undefined) {
-      setCurrentIndex(id);
-    }
-  }, [id]);
+  // leggi ingredienti dalla query string
+  const ingredientsParam = searchParams.get('ingredients');
+  const ingredients = ingredientsParam ? ingredientsParam.split(',') : [];
 
-  // Quando cambia currentIndex localmente, notifica App
-  useEffect(() => {
-    if (onIndexChange) {
-      onIndexChange(currentIndex);
-    }
-  }, [currentIndex, onIndexChange]);
+  // chiama api con gli ingredienti
+  const apiUrl = getRecipesByIngredientsURL(ingredients, ApiKey);
+  const { data: recipes, loading, error } = useApi<RecipeByIngredients[]>(apiUrl);
 
   // ricette ordinate
   const [sortedRecipes, setSortedRecipes] = useState<RecipeByIngredients[]>([]);
@@ -45,37 +37,49 @@ function DiscoverRecipes({ recipes, loading, error, onRecipeClick, onBack, id, o
     }
   }, [recipes]);
 
+  // stato locale per il carousel - leggi da query string se presente
+  const indexParam = searchParams.get('index');
+  const [currentIndex, setCurrentIndex] = useState<number>(indexParam ? parseInt(indexParam, 10) : 0);
+
+  // naviga ai dettagli della ricetta salvando index e ingredienti
+  const handleRecipeClick = (recipeId: number) => {
+    const params = new URLSearchParams();
+    params.set('ingredients', ingredients.join(','));
+    params.set('index', currentIndex.toString());
+    navigate(`/recipe/${recipeId}?${params.toString()}`);
+  };
+
+  // torna indietro mantenendo gli ingredienti
+  const handleBack = () => {
+    navigate(`/?ingredients=${encodeURIComponent(ingredients.join(','))}`);
+  };
+
   return (
     <>
-      {/* Mostra loading durante il caricamento */}
       {loading && <div className="loading-text">Cercando ricette...</div>}
 
-      {/* Mostra errore se presente */}
       {error && <div className="error-text">Errore: {error}</div>}
 
-      {/* Mostra risultati quando disponibili */}
-      {!loading && !error && recipes && sortedRecipes.length > 0 && (
+      {!loading && !error && sortedRecipes.length > 0 && (
         <>
           <ResultCounter count={sortedRecipes.length} />
 
           <RecipeCarousel
             recipes={sortedRecipes}
-            onRecipeClick={onRecipeClick}
+            onRecipeClick={handleRecipeClick}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
-            selectedRecipe={selectedRecipe}
           />
         </>
       )}
 
-      {/* Mostra messaggio se nessun risultato */}
       {!loading && !error && recipes && sortedRecipes.length === 0 && (
         <div className="no-results-container">
           <div className="no-results-message">
             No recipes found 🙁. Please check that you've entered all ingredients correctly, or try removing some ingredients.
           </div>
           <button
-            onClick={onBack}
+            onClick={handleBack}
             className="back-button"
           >
             <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
