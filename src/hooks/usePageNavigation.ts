@@ -1,9 +1,11 @@
+// hook non più necessario con react router
+// la navigazione è gestita tramite useNavigate
+
+/*
 import { useState } from 'react';
-import type { Page } from '../types';
 
-
-export function usePageNavigation(initialPage: Page) {
-  const [currentPage, setCurrentPage] = useState<Page>(initialPage);
+export function usePageNavigation(initialPage: string) {
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   // funzioni helper per cambiare pagina in modo semantico
   const goToSearch = () => setCurrentPage('search');
@@ -12,11 +14,12 @@ export function usePageNavigation(initialPage: Page) {
   const goToSetApi = () => setCurrentPage('setApi');
 
   return { 
-    currentPage,      // pagina attualmente visualizzata
-    setCurrentPage,   // funzione generica per cambiare pagina
-    goToSearch,       // vai alla pagina di ricerca
-    goToDiscover,     // vai alla pagina delle ricette trovate
-    goToDetails,      // vai ai dettagli di una ricetta
-    goToSetApi        // vai alla pagina per impostare l'API key
+    currentPage,
+    setCurrentPage,
+    goToSearch,
+    goToDiscover,
+    goToDetails,
+    goToSetApi
   };
 }
+*/

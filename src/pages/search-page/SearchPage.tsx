@@ -1,23 +1,24 @@
+import { useNavigate, useSearchParams } from 'react-router';
 import SearchBar from '../../components/search-bar/SearchBar';
 import Badges from '../../components/badges/Badges';
 import ReadyButton from '../../components/ready-button/ReadyButton';
 import { useIngredients } from '../../hooks/useIngredients';
-import type { SearchPageProps } from '../../types';
-
-//TODO: rimuovere la prop onSearch, usare navigate di react router
-//TODO: navigare a /discover con query string degli ingredienti selezionati
-//TODO: rimuovere initialIngredients, leggere dalla query string se presente
 
 // pagina iniziale per cercare ricette
-function SearchPage({ onSearch, initialIngredients }: SearchPageProps) {
+function SearchPage() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // leggi ingredienti dalla query string se presenti
+  const initialIngredients = searchParams.get('ingredients')?.split(',') || [];
 
   // hook per gestire gli ingredienti
   const { selectedIngredients, addIngredient, removeIngredient } = useIngredients(initialIngredients);
 
-  // quando clicchi ready
+  // quando clicchi ready naviga alla pagina discover con gli ingredienti
   const handleSearch = () => {
-    onSearch(selectedIngredients);
-    
+    const ingredientsQuery = selectedIngredients.join(',');
+    navigate(`/discover?ingredients=${encodeURIComponent(ingredientsQuery)}`);
   };
 
   return (

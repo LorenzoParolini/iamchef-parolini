@@ -1,9 +1,7 @@
 import './Layout.css'
 
-//TODO: aggiungere Outlet di react router al posto della prop main
-//TODO: header e footer possono restare come props o essere fissi
-
 // wrapper per la struttura base della pagina
+// header e footer sono passati come props per flessibilità
 interface LayoutProps {
   header?: React.ReactNode;
   main: React.ReactNode;

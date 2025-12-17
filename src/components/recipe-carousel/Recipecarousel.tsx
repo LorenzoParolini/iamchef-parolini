@@ -3,7 +3,7 @@ import RecipeCard from './recipe-card/RecipeCard';
 import './Recipecarousel.css'
 import type { RecipeCarouselProps } from '../../types';
 
-function Recipecarousel({ recipes, onRecipeClick, currentIndex, setCurrentIndex, selectedRecipe }: RecipeCarouselProps) {
+function Recipecarousel({ recipes, onRecipeClick, currentIndex, setCurrentIndex }: RecipeCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   // Quando l'indice della ricetta corrente cambia (ad esempio dopo uno swipe o un click),
@@ -59,8 +59,7 @@ function Recipecarousel({ recipes, onRecipeClick, currentIndex, setCurrentIndex,
         <RecipeCard 
           key={recipe.id}
           recipe={recipe}
-          onClick={onRecipeClick}
-          selectedRecipe={selectedRecipe}
+          onClick={() => onRecipeClick(recipe.id)}
         />
       ))}
     </div>

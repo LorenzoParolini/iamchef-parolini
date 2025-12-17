@@ -1,7 +1,7 @@
 import './RecipeCard.css'
 import type { RecipeCardProps } from '../../../types';
 
-function RecipeCard({ recipe, onClick, selectedRecipe }: RecipeCardProps) {
+function RecipeCard({ recipe, onClick }: RecipeCardProps) {
 
   const missedCount = recipe.missedIngredientCount;
 
@@ -29,9 +29,7 @@ function RecipeCard({ recipe, onClick, selectedRecipe }: RecipeCardProps) {
             </div>
             <div className="ready-in-minutes">
               <span className="count-circle">
-                {selectedRecipe?.id === recipe.id && selectedRecipe.readyInMinutes 
-                  ? selectedRecipe.readyInMinutes 
-                  : 'N/A'}
+                {recipe.readyInMinutes || 'N/A'}
               </span>
               <p>minutes</p>
             </div>
