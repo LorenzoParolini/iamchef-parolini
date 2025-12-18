@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import ResultCounter from '../../components/result-counter/ResultCounter';
 import RecipeCarousel from '../../components/recipe-carousel/Recipecarousel';
-import { useApi, getRecipesByIngredientsURL } from '../../hooks/useApi';
+import { useApi, getRecipesByIngredientsURL, getRecipeInformationURL } from '../../hooks/useApi';
 import useAPIStore from '../../store/useAPIStore';
-import type { RecipeByIngredients } from '../../types';
+import type { RecipeByIngredients, Recipe } from '../../types';
 import './DiscoverRecipes.css';
 
 // pagina con i risultati della ricerca
@@ -23,6 +23,9 @@ function DiscoverRecipes() {
 
   // ricette ordinate
   const [sortedRecipes, setSortedRecipes] = useState<RecipeByIngredients[]>([]);
+  
+  // cache dei dettagli delle ricette (id -> Recipe)
+  const [recipeDetailsCache, setRecipeDetailsCache] = useState<Record<number, Recipe>>({});
 
   // quando arrivano i risultati, ordina
   useEffect(() => {
@@ -40,6 +43,23 @@ function DiscoverRecipes() {
   // stato locale per il carousel - leggi da query string se presente
   const indexParam = searchParams.get('index');
   const [currentIndex, setCurrentIndex] = useState<number>(indexParam ? parseInt(indexParam, 10) : 0);
+  
+  // carica i dettagli della ricetta corrente
+  const currentRecipeId = sortedRecipes[currentIndex]?.id;
+  const detailsUrl = currentRecipeId && !recipeDetailsCache[currentRecipeId] 
+    ? getRecipeInformationURL(currentRecipeId, ApiKey)
+    : '';
+  const { data: currentRecipeDetails } = useApi<Recipe>(detailsUrl);
+  
+  // salva i dettagli nella cache quando arrivano
+  useEffect(() => {
+    if (currentRecipeDetails && currentRecipeId) {
+      setRecipeDetailsCache(prev => ({
+        ...prev,
+        [currentRecipeId]: currentRecipeDetails
+      }));
+    }
+  }, [currentRecipeDetails, currentRecipeId]);
 
   // naviga ai dettagli della ricetta salvando index e ingredienti
   const handleRecipeClick = (recipeId: number) => {
@@ -65,7 +85,10 @@ function DiscoverRecipes() {
           <ResultCounter count={sortedRecipes.length} />
 
           <RecipeCarousel
-            recipes={sortedRecipes}
+            recipes={sortedRecipes.map(recipe => ({
+              ...recipe,
+              readyInMinutes: recipeDetailsCache[recipe.id]?.readyInMinutes ?? recipe.readyInMinutes
+            }))}
             onRecipeClick={handleRecipeClick}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
