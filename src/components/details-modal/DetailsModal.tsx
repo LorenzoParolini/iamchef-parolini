@@ -30,14 +30,13 @@ function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProp
           ✕
         </button>
 
-        <div 
-          className="modal-image"
-          style={{
-            backgroundImage: `url(${recipe.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
+        <div className="modal-image">
+          <img 
+            src={recipe.image} 
+            alt={recipe.title}
+            loading="lazy"
+            className="modal-image-img"
+          />
           <div className="modal-image-overlay">
             <h2>{recipe.title}</h2>
           </div>
