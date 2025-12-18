@@ -36,13 +36,13 @@ function RecipeDetails() {
   };
 
   if (loading) {
-    return <div className="loading-text">Caricamento dettagli...</div>;
+    return <div className="loading-text">Loading details...</div>;
   }
 
   if (error) {
     return (
       <div className="error-container">
-        <p className="error-text">Errore: {error}</p>
+        <p className="error-text">Error: {error}</p>
         <button onClick={handleBack}>Torna indietro</button>
       </div>
     );

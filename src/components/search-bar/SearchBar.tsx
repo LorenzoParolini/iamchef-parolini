@@ -71,12 +71,12 @@ function SearchBar({ onAddIngredient }: SearchBarProps) {
               
               {/* ⏳ Indicatore di caricamento */}
               {loading && inputValue.length > 0 && (
-                <div className="loading-text">Caricamento...</div>
+                <div className="loading-text">Loading...</div>
               )}
               
               {/* ❌ Messaggio di errore */}
               {error && inputValue.length > 0 && (
-                <div className="error-text">Errore: {error}</div>
+                <div className="error-text">Error: {error}</div>
               )}
               
               {/* 📋 Lista suggerimenti */}
