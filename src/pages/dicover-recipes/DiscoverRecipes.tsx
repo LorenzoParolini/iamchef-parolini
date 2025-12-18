@@ -56,9 +56,9 @@ function DiscoverRecipes() {
 
   return (
     <>
-      {loading && <div className="loading-text">Cercando ricette...</div>}
+      {loading && <div className="loading-text">Searching recipes...</div>}
 
-      {error && <div className="error-text">Errore: {error}</div>}
+      {error && <div className="error-text">Error: {error}</div>}
 
       {!loading && !error && sortedRecipes.length > 0 && (
         <>
