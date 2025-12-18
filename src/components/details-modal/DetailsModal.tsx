@@ -73,6 +73,9 @@ function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProp
               <span key={idx} className="tag">{type}</span>
             ))}
             {recipe.vegetarian && <span className="tag">Vegetarian</span>}
+            {recipe.vegan && <span className="tag">Vegan</span>}
+            {recipe.glutenFree && <span className="tag">Gluten Free</span>}
+            {recipe.dairyFree && <span className="tag">Dairy Free</span>}
             {recipe.cuisines.map((cuisine, idx) => (
               <span key={idx} className="tag">{cuisine}</span>
             ))}
