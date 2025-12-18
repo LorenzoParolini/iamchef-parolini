@@ -72,7 +72,7 @@ function DetailsModal({ recipe, selectedIngredients, onClose }: DetailsModalProp
             {recipe.dishTypes.map((type, idx) => (
               <span key={idx} className="tag">{type}</span>
             ))}
-            {recipe.vegetarian && <span className="tag">Primo</span>}
+            {recipe.vegetarian && <span className="tag">Vegetarian</span>}
             {recipe.cuisines.map((cuisine, idx) => (
               <span key={idx} className="tag">{cuisine}</span>
             ))}
