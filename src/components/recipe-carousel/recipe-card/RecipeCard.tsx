@@ -9,12 +9,13 @@ function RecipeCard({ recipe, onClick }: RecipeCardProps) {
     <div 
       className="recipe-card"
       onClick={onClick}
-      style={{
-        backgroundImage: `url(${recipe.image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}
     >
+      <img 
+        src={recipe.image} 
+        alt={recipe.title}
+        loading="lazy"
+        className="recipe-card-image"
+      />
 
       <div className="heading">
         <h3>{recipe.title}</h3>
